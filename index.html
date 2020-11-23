@@ -7,13 +7,9 @@
     <title>Rubik's Cube</title>
   </head>
   <body>
-    <div class="rubiks-cube" style="--crx: -45deg; --cry: 45deg">
+    <div class="rubiks-cube" style="--crx: -45deg; --cry: -45deg">
       <div class="face front" data-index="1">
-        <div
-          class="piece"
-          data-index="1"
-          style="--prx: 0deg; --pry: 0deg; --prz: 0deg"
-        ></div>
+        <div class="piece" data-index="1"></div>
         <div class="piece" data-index="2"></div>
         <div class="piece" data-index="3"></div>
         <div class="piece" data-index="4"></div>
@@ -78,6 +74,14 @@
         <div class="piece" data-index="8"></div>
         <div class="piece" data-index="9"></div>
       </div>
+    </div>
+    <div class="control-cube" style="--crx: -45deg; --cry: -45deg">
+      <div class="face front">front</div>
+      <div class="face right">right</div>
+      <div class="face left">left</div>
+      <div class="face back">back</div>
+      <div class="face top">top</div>
+      <div class="face bottom">bottom</div>
     </div>
     <script src="./scripts.js"></script>
   </body>

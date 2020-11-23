@@ -27,6 +27,8 @@ body {
   --size: min(50vh, 50vw);
   --half-size: calc(var(--size) / 2);
   --half-size-neg: calc(var(--size) / -2);
+  --crx: 0deg;
+  --cry: 0deg;
 }
 
 .rubiks-cube * {
@@ -35,7 +37,8 @@ body {
   box-sizing: border-box;
 }
 
-.rubiks-cube .face {
+.rubiks-cube .face,
+.control-cube .face {
   width: var(--size);
   height: var(--size);
   position: absolute;
@@ -46,51 +49,63 @@ body {
   --border-width: max(4px, calc(var(--size) / 100));
 }
 
-.rubiks-cube .face.front {
+.rubiks-cube .face.front,
+.control-cube .face.front {
   transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
 }
 
-.rubiks-cube .face.front > * {
+.rubiks-cube .face.front > *,
+.control-cube .face.front {
   background-color: rgb(0, 155, 72);
 }
 
-.rubiks-cube .face.right {
+.rubiks-cube .face.right,
+.control-cube .face.right {
   transform: translate3d(var(--half-size), 0, 0) rotate3d(0, 1, 0, 90deg);
 }
 
-.rubiks-cube .face.right > * {
+.rubiks-cube .face.right > *,
+.control-cube .face.right {
   background-color: rgb(183, 18, 52);
 }
 
-.rubiks-cube .face.left {
+.rubiks-cube .face.left,
+.control-cube .face.left {
   transform: translate3d(var(--half-size-neg), 0, 0) rotate3d(0, 1, 0, -90deg);
 }
 
-.rubiks-cube .face.left > * {
+.rubiks-cube .face.left > *,
+.control-cube .face.left {
   background-color: rgb(255, 88, 0);
 }
 
-.rubiks-cube .face.back {
+.rubiks-cube .face.back,
+.control-cube .face.back {
   transform: translate3d(0, 0, var(--half-size-neg)) rotate3d(0, 1, 0, 180deg);
 }
 
-.rubiks-cube .face.back > * {
+.rubiks-cube .face.back > *,
+.control-cube .face.back {
   background-color: rgb(0, 70, 173);
 }
 
-.rubiks-cube .face.top {
+.rubiks-cube .face.top,
+.control-cube .face.top {
   transform: translate3d(0, var(--half-size-neg), 0) rotate3d(1, 0, 0, 90deg);
 }
 
-.rubiks-cube .face.top > * {
+.rubiks-cube .face.top > *,
+.control-cube .face.top {
   background-color: rgb(255, 255, 255);
 }
 
-.rubiks-cube .face.bottom {
+.rubiks-cube .face.bottom,
+.control-cube .face.bottom {
   transform: translate3d(0, var(--half-size), 0) rotate3d(1, 0, 0, -90deg);
 }
 
-.rubiks-cube .face.bottom > * {
+.rubiks-cube .face.bottom > *,
+.control-cube .face.bottom {
   background-color: rgb(255, 213, 0);
 }
 
@@ -107,8 +122,9 @@ body {
 .rubiks-cube .face .piece[data-index="1"] {
   top: 0;
   left: 0;
+
   transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
-  transform-origin: var(--half-size) var(--half-size) var(--half-size-neg);
+  transform-origin: 150% 150% var(--half-size-neg);
   transform-style: preserve-3d;
 
   --prx: 0deg;
@@ -119,39 +135,136 @@ body {
 .rubiks-cube .face .piece[data-index="2"] {
   top: 0;
   left: var(--second-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: 50% 150% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="3"] {
   top: 0;
   left: var(--third-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: -50% 150% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="4"] {
   top: var(--second-position);
   left: 0;
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: 150% 50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="5"] {
   top: var(--second-position);
   left: var(--second-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: 50% 50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="6"] {
   top: var(--second-position);
   left: var(--third-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: -50% 50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="7"] {
   top: var(--third-position);
   left: 0;
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: 150% -50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="8"] {
   top: var(--third-position);
   left: var(--second-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: 50% -50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index="9"] {
   top: var(--third-position);
   left: var(--third-position);
+
+  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
+  transform-origin: -50% -50% var(--half-size-neg);
+  transform-style: preserve-3d;
+
+  --prx: 0deg;
+  --pry: 0deg;
+  --prz: 0deg;
+}
+
+.control-cube {
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  top: var(--half-size);
+  right: var(--half-size);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--crx)) rotateY(var(--cry));
+
+  --size: min(20vh, 20vw);
+  --half-size: calc(var(--size) / 2);
+  --half-size-neg: calc(var(--size) / -2);
+  --crx: 0deg;
+  --cry: 0deg;
+}
+
+.control-cube .face {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--size) / 5);
+  font-family: sans-serif;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: grab;
+  backface-visibility: none;
+}
+
+.control-cube .face:active {
+  cursor: grabbing;
 }
