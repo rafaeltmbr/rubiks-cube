@@ -29,6 +29,7 @@ body {
   --half-size-neg: calc(var(--size) / -2);
   --crx: 0deg;
   --cry: 0deg;
+  --animation-duration: 2000ms;
 }
 
 .rubiks-cube * {
@@ -49,13 +50,17 @@ body {
   --border-width: max(4px, calc(var(--size) / 100));
 }
 
+.rubiks-cube .face.top,
+.rubiks-cube .face.bottom {
+  pointer-events: none;
+}
+
 .rubiks-cube .face.front,
 .control-cube .face.front {
   transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
 }
 
-.rubiks-cube .face.front > *,
-.control-cube .face.front {
+.rubiks-cube .face.front > * {
   background-color: rgb(0, 155, 72);
 }
 
@@ -64,8 +69,7 @@ body {
   transform: translate3d(var(--half-size), 0, 0) rotate3d(0, 1, 0, 90deg);
 }
 
-.rubiks-cube .face.right > *,
-.control-cube .face.right {
+.rubiks-cube .face.right > * {
   background-color: rgb(183, 18, 52);
 }
 
@@ -74,8 +78,7 @@ body {
   transform: translate3d(var(--half-size-neg), 0, 0) rotate3d(0, 1, 0, -90deg);
 }
 
-.rubiks-cube .face.left > *,
-.control-cube .face.left {
+.rubiks-cube .face.left > * {
   background-color: rgb(255, 88, 0);
 }
 
@@ -84,8 +87,7 @@ body {
   transform: translate3d(0, 0, var(--half-size-neg)) rotate3d(0, 1, 0, 180deg);
 }
 
-.rubiks-cube .face.back > *,
-.control-cube .face.back {
+.rubiks-cube .face.back > * {
   background-color: rgb(0, 70, 173);
 }
 
@@ -94,8 +96,7 @@ body {
   transform: translate3d(0, var(--half-size-neg), 0) rotate3d(1, 0, 0, 90deg);
 }
 
-.rubiks-cube .face.top > *,
-.control-cube .face.top {
+.rubiks-cube .face.top > * {
   background-color: rgb(255, 255, 255);
 }
 
@@ -104,8 +105,7 @@ body {
   transform: translate3d(0, var(--half-size), 0) rotate3d(1, 0, 0, -90deg);
 }
 
-.rubiks-cube .face.bottom > *,
-.control-cube .face.bottom {
+.rubiks-cube .face.bottom > * {
   background-color: rgb(255, 213, 0);
 }
 
@@ -114,12 +114,13 @@ body {
   width: calc(var(--size) / 3);
   height: calc(var(--size) / 3);
   border: var(--border-width) solid #000;
+  transition-duration: var(--animation-duration);
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
 }
 
-.rubiks-cube .face .piece[data-index="1"] {
+.rubiks-cube .face .piece[data-index='1'] {
   top: 0;
   left: 0;
 
@@ -132,7 +133,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="2"] {
+.rubiks-cube .face .piece[data-index='2'] {
   top: 0;
   left: var(--second-position);
 
@@ -145,7 +146,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="3"] {
+.rubiks-cube .face .piece[data-index='3'] {
   top: 0;
   left: var(--third-position);
 
@@ -158,7 +159,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="4"] {
+.rubiks-cube .face .piece[data-index='4'] {
   top: var(--second-position);
   left: 0;
 
@@ -171,7 +172,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="5"] {
+.rubiks-cube .face .piece[data-index='5'] {
   top: var(--second-position);
   left: var(--second-position);
 
@@ -184,7 +185,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="6"] {
+.rubiks-cube .face .piece[data-index='6'] {
   top: var(--second-position);
   left: var(--third-position);
 
@@ -197,7 +198,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="7"] {
+.rubiks-cube .face .piece[data-index='7'] {
   top: var(--third-position);
   left: 0;
 
@@ -210,7 +211,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="8"] {
+.rubiks-cube .face .piece[data-index='8'] {
   top: var(--third-position);
   left: var(--second-position);
 
@@ -223,7 +224,7 @@ body {
   --prz: 0deg;
 }
 
-.rubiks-cube .face .piece[data-index="9"] {
+.rubiks-cube .face .piece[data-index='9'] {
   top: var(--third-position);
   left: var(--third-position);
 
@@ -253,16 +254,20 @@ body {
 }
 
 .control-cube .face {
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(var(--size) / 5);
-  font-family: sans-serif;
-  text-transform: uppercase;
+  border: 1px solid #fff;
   user-select: none;
   cursor: grab;
   backface-visibility: none;
+  background-color: rgb(80, 71, 158);
+  opacity: 0.9;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: #fff;
 }
 
 .control-cube .face:active {
