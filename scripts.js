@@ -53,7 +53,8 @@ function implementRubiksCubePiecesMovement() {
     const offset = { x: 0, y: 0 };
     const piece = startEvent.target;
     let axis = '';
-    const minOffsetDiff = 5;
+    let rotated = false;
+    const minOffsetDiff = 10;
 
     function handleCubeMovement(moveEvent) {
       moveEvent.preventDefault();
@@ -68,9 +69,10 @@ function implementRubiksCubePiecesMovement() {
         }
       }
 
-      if (axis) {
+      if (axis && !rotated) {
         const angle = axis === 'x' ? (offset.y >= 0 ? -90 : 90) : offset.x >= 0 ? 90 : -90;
         piecesMatrix.rotatePiece({ piece, axis, angle });
+        endCubeMovement();
       }
     }
 
@@ -88,9 +90,9 @@ function implementRubiksCubePiecesMovement() {
 }
 
 class PiecesMatrix {
+  pieces = [];
   _sides = ['front', 'right', 'left', 'back', 'top', 'bottom'];
   _matrix = {};
-  pieces = [];
 
   constructor(rubiksCubeCSSSelector) {
     this._cube = document.querySelector(rubiksCubeCSSSelector);
@@ -106,7 +108,7 @@ class PiecesMatrix {
       for (let i = 0; i < pieces.length; i += 1) {
         const piece = pieces[i];
         const row = Math.floor(i / 3);
-        this._matrix[side][row].push(piece);
+        this._matrix[side][row].push([piece]);
         this.pieces.push(pieces[i]);
       }
     });
@@ -114,20 +116,39 @@ class PiecesMatrix {
 
   rotatePiece({ piece, axis, angle }) {
     const location = this._findPieceLocation(piece);
+    if (location.side === 'top' || location.side === 'bottom') return;
+
     const maps = rotationMap[location.side][axis][axis === 'x' ? location.column : location.row];
 
     maps.forEach((m) => {
       m.rows.forEach((row) => {
         m.columns.forEach((column) => {
-          const piece = this._matrix[m.side][row][column];
-          this._rotate({ piece, axis: m.axis, angle: m.reverse ? -parseInt(angle) : angle });
+          const piece = this._matrix[m.side][row][column].shift();
+
+          const direction = angle * (m.reverse ? -1 : 1) >= 0 ? 'increase' : 'decrease';
+          const move = matrixMovementMap[m.side][m.axis][direction];
+          let r = move.swapAxis ? column : row;
+          let c = move.swapAxis ? row : column;
+          r = move.reverseRow ? 2 - r : r;
+          c = move.reverseColumn ? 2 - c : c;
+          const side = move.next || m.side;
+          const sideMap = { front: 'F', right: 'R', left: 'L', back: 'BK', top: 'T', bottom: 'BT' };
+          const matrixPosition = `--position: "${sideMap[side]}${r}${c}"`;
+
+          this._matrix[side][r][c].push(piece);
+          this._rotate({
+            piece,
+            axis: m.axis,
+            angle: m.reverse ? -parseInt(angle) : angle,
+            append: matrixPosition,
+          });
         });
       });
     });
   }
 
-  _rotate({ piece, axis, angle }) {
-    piece.style = `--pr${axis}: ${angle}deg`;
+  _rotate({ piece, axis, angle, append }) {
+    piece.style = `--pr${axis}: ${angle}deg;${append || ''}`;
   }
 
   _findPieceLocation(piece) {
@@ -136,7 +157,7 @@ class PiecesMatrix {
       for (let row = 0; row < 3; row += 1) {
         const columns = this._matrix[side][row];
         for (let column = 0; column < 3; column += 1) {
-          if (piece === columns[column]) return { side, row, column };
+          if (piece === columns[column][0]) return { side, row, column };
         }
       }
     }

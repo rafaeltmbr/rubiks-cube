@@ -50,11 +50,6 @@ body {
   --border-width: max(4px, calc(var(--size) / 100));
 }
 
-.rubiks-cube .face.top,
-.rubiks-cube .face.bottom {
-  pointer-events: none;
-}
-
 .rubiks-cube .face.front,
 .control-cube .face.front {
   transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
@@ -115,9 +110,31 @@ body {
   height: calc(var(--size) / 3);
   border: var(--border-width) solid #000;
   transition-duration: var(--animation-duration);
+  cursor: grab;
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
+
+  /* temporary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--size) / 8);
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.rubiks-cube .face .piece:after {
+  content: var(--position);
+  display: block;
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
+  font-size: 0.5em;
+}
+
+.rubiks-cube .face .piece:active {
+  cursor: grabbing;
 }
 
 .rubiks-cube .face .piece[data-index='1'] {

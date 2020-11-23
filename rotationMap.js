@@ -1,5 +1,5 @@
 // side.axis.position
-rotationMap = {
+var rotationMap = {
   front: {
     x: {
       0: [
