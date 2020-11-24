@@ -4,6 +4,11 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(195, 233, 255),
+    rgb(228, 251, 255)
+  );
 }
 
 body {
@@ -33,7 +38,7 @@ body {
   --half-size-neg: calc(var(--size) / -2);
   --crx: 0deg;
   --cry: 0deg;
-  --animation-duration: 1000ms;
+  --animation-duration: 350ms;
 }
 
 .rubiks-cube * {
@@ -102,55 +107,55 @@ body {
   cursor: grabbing;
 }
 
-.rubiks-cube .face .piece[data-index='1'] {
+.rubiks-cube .face .piece[data-index="1"] {
   top: 0;
   left: 0;
   transform-origin: 150% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='2'] {
+.rubiks-cube .face .piece[data-index="2"] {
   top: 0;
   left: var(--second-position);
   transform-origin: 50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='3'] {
+.rubiks-cube .face .piece[data-index="3"] {
   top: 0;
   left: var(--third-position);
   transform-origin: -50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='4'] {
+.rubiks-cube .face .piece[data-index="4"] {
   top: var(--second-position);
   left: 0;
   transform-origin: 150% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='5'] {
+.rubiks-cube .face .piece[data-index="5"] {
   top: var(--second-position);
   left: var(--second-position);
   transform-origin: 50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='6'] {
+.rubiks-cube .face .piece[data-index="6"] {
   top: var(--second-position);
   left: var(--third-position);
   transform-origin: -50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='7'] {
+.rubiks-cube .face .piece[data-index="7"] {
   top: var(--third-position);
   left: 0;
   transform-origin: 150% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='8'] {
+.rubiks-cube .face .piece[data-index="8"] {
   top: var(--third-position);
   left: var(--second-position);
   transform-origin: 50% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='9'] {
+.rubiks-cube .face .piece[data-index="9"] {
   top: var(--third-position);
   left: var(--third-position);
   transform-origin: -50% -50% var(--half-size-neg);
@@ -177,12 +182,12 @@ body {
 }
 
 .control-cube .face {
-  border: 1px solid #fff;
+  border: 1px solid rgb(214, 220, 238);
   user-select: none;
   cursor: grab;
   backface-visibility: none;
-  background-color: rgb(80, 71, 158);
-  opacity: 0.9;
+  background-color: rgb(101, 119, 223);
+  opacity: 0.8;
 
   display: flex;
   align-items: center;
@@ -190,7 +195,7 @@ body {
   text-transform: uppercase;
   font-family: sans-serif;
   font-size: calc(var(--size) / 5);
-  color: #fff;
+  color: rgb(255, 255, 255);
 }
 
 .control-cube .face:active {
