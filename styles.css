@@ -17,6 +17,10 @@ body {
   justify-content: center;
 }
 
+/********************************************************************************
+                                RUBIK'S CUBE
+**/
+
 .rubiks-cube {
   width: var(--size);
   height: var(--size);
@@ -40,6 +44,7 @@ body {
 
 .rubiks-cube .face {
   pointer-events: none;
+  --translation: translate3d(0, 0, var(--half-size));
 }
 
 .rubiks-cube .face,
@@ -54,54 +59,24 @@ body {
   --border-width: max(4px, calc(var(--size) / 100));
 }
 
-.rubiks-cube .face.front,
-.control-cube .face.front {
-  transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
-}
-
 .rubiks-cube .face.front > * {
   background-color: rgb(0, 155, 72);
-}
-
-.rubiks-cube .face.right,
-.control-cube .face.right {
-  transform: translate3d(var(--half-size), 0, 0) rotate3d(0, 1, 0, 90deg);
 }
 
 .rubiks-cube .face.right > * {
   background-color: rgb(183, 18, 52);
 }
 
-.rubiks-cube .face.left,
-.control-cube .face.left {
-  transform: translate3d(var(--half-size-neg), 0, 0) rotate3d(0, 1, 0, -90deg);
-}
-
 .rubiks-cube .face.left > * {
   background-color: rgb(255, 88, 0);
-}
-
-.rubiks-cube .face.back,
-.control-cube .face.back {
-  transform: translate3d(0, 0, var(--half-size-neg)) rotate3d(0, 1, 0, 180deg);
 }
 
 .rubiks-cube .face.back > * {
   background-color: rgb(0, 70, 173);
 }
 
-.rubiks-cube .face.top,
-.control-cube .face.top {
-  transform: translate3d(0, var(--half-size-neg), 0) rotate3d(1, 0, 0, 90deg);
-}
-
 .rubiks-cube .face.top > * {
   background-color: rgb(255, 255, 255);
-}
-
-.rubiks-cube .face.bottom,
-.control-cube .face.bottom {
-  transform: translate3d(0, var(--half-size), 0) rotate3d(1, 0, 0, -90deg);
 }
 
 .rubiks-cube .face.bottom > * {
@@ -114,30 +89,13 @@ body {
   height: calc(var(--size) / 3);
   border: var(--border-width) solid #000;
   transition-duration: var(--animation-duration);
-  transform: var(--rotation);
+  transform: var(--translation) var(--rotation);
   transform-style: preserve-3d;
   cursor: grab;
   pointer-events: all;
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
-
-  /* temporary */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(var(--size) / 8);
-  font-family: sans-serif;
-  user-select: none;
-}
-
-.rubiks-cube .face .piece:after {
-  content: var(--position);
-  display: block;
-  bottom: 5px;
-  right: 5px;
-  position: absolute;
-  font-size: 0.5em;
 }
 
 .rubiks-cube .face .piece:active {
@@ -198,6 +156,10 @@ body {
   transform-origin: -50% -50% var(--half-size-neg);
 }
 
+/********************************************************************************
+                                CONTROL CUBE
+**/
+
 .control-cube {
   width: var(--size);
   height: var(--size);
@@ -233,4 +195,28 @@ body {
 
 .control-cube .face:active {
   cursor: grabbing;
+}
+
+.control-cube .face.front {
+  transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
+}
+
+.control-cube .face.right {
+  transform: translate3d(var(--half-size), 0, 0) rotate3d(0, 1, 0, 90deg);
+}
+
+.control-cube .face.left {
+  transform: translate3d(var(--half-size-neg), 0, 0) rotate3d(0, 1, 0, -90deg);
+}
+
+.control-cube .face.back {
+  transform: translate3d(0, 0, var(--half-size-neg)) rotate3d(0, 1, 0, 180deg);
+}
+
+.control-cube .face.top {
+  transform: translate3d(0, var(--half-size-neg), 0) rotate3d(1, 0, 0, 90deg);
+}
+
+.control-cube .face.bottom {
+  transform: translate3d(0, var(--half-size), 0) rotate3d(1, 0, 0, -90deg);
 }

@@ -93,6 +93,14 @@ class PiecesMatrix {
   pieces = [];
   _sides = ['front', 'right', 'left', 'back', 'top', 'bottom'];
   _matrix = {};
+  _initialRotationMap = {
+    front: '--rotation: ',
+    right: '--rotation: rotateY(90deg) ',
+    left: '--rotation: rotateY(270deg) ',
+    back: '--rotation: rotateY(180deg) ',
+    top: '--rotation: rotateX(90deg) ',
+    bottom: '--rotation: rotateX(270deg) ',
+  };
 
   constructor(rubiksCubeCSSSelector) {
     this._cube = document.querySelector(rubiksCubeCSSSelector);
@@ -111,8 +119,9 @@ class PiecesMatrix {
         this._matrix[side][row].push([piece]);
         this.pieces.push(piece);
         piece._piecesMatrix = {
-          lastRotation: '--rotation: ',
+          lastRotation: this._initialRotationMap[side],
           baseSide: side,
+          baseAxis: { x: { axis: 'x' }, y: { axis: 'y' }, z: { axis: 'z' } },
         };
       }
     });
@@ -133,35 +142,24 @@ class PiecesMatrix {
           const nextSide = move.next || m.side;
           const nextAngle = m.reverse ? -parseInt(angle) : angle;
 
-          let r = move.swapAxis ? column : row;
-          let c = move.swapAxis ? row : column;
-          r = move.reverseRow ? 2 - r : r;
-          c = move.reverseColumn ? 2 - c : c;
-          const sideMap = { front: 'F', right: 'R', left: 'L', back: 'BK', top: 'T', bottom: 'BT' };
-          const matrixPosition = `--position: "${sideMap[nextSide]}${r}${c}"`;
+          const { r, c } = this._adjustPiecePosition({ move, column, row });
           this._matrix[nextSide][r][c].push(piece);
 
-          const adj = this._adjustCoordinates({
-            piece,
-            side: nextSide,
-            axis: m.axis,
-            angle: nextAngle,
-          });
-
-          this._rotate({
-            piece,
-            axis: adj.axis,
-            angle: adj.angle,
-            append: matrixPosition,
-          });
+          this._rotate({ piece, axis: m.axis, angle: nextAngle });
+          this._adjustBaseAxis({ piece, move });
         });
       });
     });
   }
 
-  _rotate({ piece, axis, angle, append = '' }) {
-    piece._piecesMatrix.lastRotation += `rotate${axis.toUpperCase()}(${angle}deg) `;
-    piece.style = `${piece._piecesMatrix.lastRotation}; ${append}`;
+  _rotate({ piece, axis, angle }) {
+    const { baseAxis } = piece._piecesMatrix;
+
+    const newAxis = baseAxis[axis].axis;
+    const newAngle = baseAxis[axis].reverse ? -angle : angle;
+
+    piece._piecesMatrix.lastRotation += `rotate${newAxis.toUpperCase()}(${newAngle}deg) `;
+    piece.style = `${piece._piecesMatrix.lastRotation};`;
   }
 
   _findPieceLocation(piece) {
@@ -176,14 +174,25 @@ class PiecesMatrix {
     }
   }
 
-  _adjustCoordinates({ piece, side, axis, angle }) {
-    const currentSide = piece._piecesMatrix.currentSide || piece._piecesMatrix.baseSide;
-    piece._piecesMatrix.currentSide = side;
-    const translation = baseTranslationMap[piece._piecesMatrix.baseSide][currentSide][axis];
+  _adjustPiecePosition({ move, column, row }) {
+    let r = move.swapAxis ? column : row;
+    let c = move.swapAxis ? row : column;
+    r = move.reverseRow ? 2 - r : r;
+    c = move.reverseColumn ? 2 - c : c;
 
-    return {
-      axis: translation.axis,
-      angle: translation.reverse ? -angle : angle,
-    };
+    return { r, c };
+  }
+
+  _adjustBaseAxis({ piece, move }) {
+    const { baseAxis } = piece._piecesMatrix;
+
+    if (move.swapAxis) {
+      let temp = baseAxis.x;
+      baseAxis.x = baseAxis.y;
+      baseAxis.y = temp;
+    }
+
+    baseAxis.x.reverse = move.reverseColumn ? !baseAxis.x.reverse : baseAxis.x.reverse;
+    baseAxis.y.reverse = move.reverseRow ? !baseAxis.y.reverse : baseAxis.y.reverse;
   }
 }
