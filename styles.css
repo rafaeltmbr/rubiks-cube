@@ -33,7 +33,7 @@ body {
   transform-style: preserve-3d;
   transform: rotateX(var(--crx)) rotateY(var(--cry));
 
-  --size: min(60vh, 60vw);
+  --size: min(50vh, 50vw);
   --half-size: calc(var(--size) / 2);
   --half-size-neg: calc(var(--size) / -2);
   --crx: 0deg;
@@ -159,6 +159,12 @@ body {
   top: var(--third-position);
   left: var(--third-position);
   transform-origin: -50% -50% var(--half-size-neg);
+}
+
+@media screen and (max-width: 700px) {
+  .rubiks-cube {
+    --size: min(65vh, 65vw);
+  }
 }
 
 /********************************************************************************
