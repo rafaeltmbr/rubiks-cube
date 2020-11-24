@@ -109,7 +109,11 @@ class PiecesMatrix {
         const piece = pieces[i];
         const row = Math.floor(i / 3);
         this._matrix[side][row].push([piece]);
-        this.pieces.push(pieces[i]);
+        this.pieces.push(piece);
+        piece._piecesMatrix = {
+          lastRotation: '--rotation: ',
+          baseSide: side,
+        };
       }
     });
   }
@@ -124,22 +128,30 @@ class PiecesMatrix {
       m.rows.forEach((row) => {
         m.columns.forEach((column) => {
           const piece = this._matrix[m.side][row][column].shift();
-
           const direction = angle * (m.reverse ? -1 : 1) >= 0 ? 'increase' : 'decrease';
           const move = matrixMovementMap[m.side][m.axis][direction];
+          const nextSide = move.next || m.side;
+          const nextAngle = m.reverse ? -parseInt(angle) : angle;
+
           let r = move.swapAxis ? column : row;
           let c = move.swapAxis ? row : column;
           r = move.reverseRow ? 2 - r : r;
           c = move.reverseColumn ? 2 - c : c;
-          const side = move.next || m.side;
           const sideMap = { front: 'F', right: 'R', left: 'L', back: 'BK', top: 'T', bottom: 'BT' };
-          const matrixPosition = `--position: "${sideMap[side]}${r}${c}"`;
+          const matrixPosition = `--position: "${sideMap[nextSide]}${r}${c}"`;
+          this._matrix[nextSide][r][c].push(piece);
 
-          this._matrix[side][r][c].push(piece);
+          const adj = this._adjustCoordinates({
+            piece,
+            side: nextSide,
+            axis: m.axis,
+            angle: nextAngle,
+          });
+
           this._rotate({
             piece,
-            axis: m.axis,
-            angle: m.reverse ? -parseInt(angle) : angle,
+            axis: adj.axis,
+            angle: adj.angle,
             append: matrixPosition,
           });
         });
@@ -147,8 +159,9 @@ class PiecesMatrix {
     });
   }
 
-  _rotate({ piece, axis, angle, append }) {
-    piece.style = `--pr${axis}: ${angle}deg;${append || ''}`;
+  _rotate({ piece, axis, angle, append = '' }) {
+    piece._piecesMatrix.lastRotation += `rotate${axis.toUpperCase()}(${angle}deg) `;
+    piece.style = `${piece._piecesMatrix.lastRotation}; ${append}`;
   }
 
   _findPieceLocation(piece) {
@@ -161,5 +174,16 @@ class PiecesMatrix {
         }
       }
     }
+  }
+
+  _adjustCoordinates({ piece, side, axis, angle }) {
+    const currentSide = piece._piecesMatrix.currentSide || piece._piecesMatrix.baseSide;
+    piece._piecesMatrix.currentSide = side;
+    const translation = baseTranslationMap[piece._piecesMatrix.baseSide][currentSide][axis];
+
+    return {
+      axis: translation.axis,
+      angle: translation.reverse ? -angle : angle,
+    };
   }
 }

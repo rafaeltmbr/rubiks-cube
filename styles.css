@@ -29,13 +29,17 @@ body {
   --half-size-neg: calc(var(--size) / -2);
   --crx: 0deg;
   --cry: 0deg;
-  --animation-duration: 2000ms;
+  --animation-duration: 1000ms;
 }
 
 .rubiks-cube * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.rubiks-cube .face {
+  pointer-events: none;
 }
 
 .rubiks-cube .face,
@@ -110,7 +114,10 @@ body {
   height: calc(var(--size) / 3);
   border: var(--border-width) solid #000;
   transition-duration: var(--animation-duration);
+  transform: var(--rotation);
+  transform-style: preserve-3d;
   cursor: grab;
+  pointer-events: all;
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
@@ -140,118 +147,55 @@ body {
 .rubiks-cube .face .piece[data-index='1'] {
   top: 0;
   left: 0;
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 150% 150% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='2'] {
   top: 0;
   left: var(--second-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 50% 150% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='3'] {
   top: 0;
   left: var(--third-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: -50% 150% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='4'] {
   top: var(--second-position);
   left: 0;
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 150% 50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='5'] {
   top: var(--second-position);
   left: var(--second-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 50% 50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='6'] {
   top: var(--second-position);
   left: var(--third-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: -50% 50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='7'] {
   top: var(--third-position);
   left: 0;
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 150% -50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='8'] {
   top: var(--third-position);
   left: var(--second-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: 50% -50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .rubiks-cube .face .piece[data-index='9'] {
   top: var(--third-position);
   left: var(--third-position);
-
-  transform: rotateX(var(--prx)) rotateY(var(--pry)) rotateZ(var(--prz));
   transform-origin: -50% -50% var(--half-size-neg);
-  transform-style: preserve-3d;
-
-  --prx: 0deg;
-  --pry: 0deg;
-  --prz: 0deg;
 }
 
 .control-cube {
