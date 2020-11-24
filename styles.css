@@ -6,8 +6,8 @@ body {
   padding: 0;
   background-image: linear-gradient(
     to bottom,
-    rgb(195, 233, 255),
-    rgb(228, 251, 255)
+    rgb(48, 48, 48),
+    rgb(54, 54, 54)
   );
 }
 
@@ -64,27 +64,27 @@ body {
   --border-width: max(2px, calc(var(--size) / 70));
 }
 
-.rubiks-cube .face.front > * {
+.rubiks-cube .face.front .piece:after {
   background-color: rgb(0, 155, 72);
 }
 
-.rubiks-cube .face.right > * {
+.rubiks-cube .face.right .piece:after {
   background-color: rgb(183, 18, 52);
 }
 
-.rubiks-cube .face.left > * {
+.rubiks-cube .face.left .piece:after {
   background-color: rgb(255, 88, 0);
 }
 
-.rubiks-cube .face.back > * {
+.rubiks-cube .face.back .piece:after {
   background-color: rgb(0, 70, 173);
 }
 
-.rubiks-cube .face.top > * {
+.rubiks-cube .face.top .piece:after {
   background-color: rgb(255, 255, 255);
 }
 
-.rubiks-cube .face.bottom > * {
+.rubiks-cube .face.bottom .piece:after {
   background-color: rgb(255, 213, 0);
 }
 
@@ -92,15 +92,27 @@ body {
   position: absolute;
   width: calc(var(--size) / 3);
   height: calc(var(--size) / 3);
-  border: var(--border-width) solid #000;
   transition-duration: var(--animation-duration);
   transform: var(--translation) var(--rotation);
   transform-style: preserve-3d;
   cursor: grab;
   pointer-events: all;
+  background-color: #000;
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
+}
+
+.rubiks-cube .face .piece:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: var(--border-width) solid #000;
+  backface-visibility: hidden;
 }
 
 .rubiks-cube .face .piece:active {
