@@ -61,7 +61,7 @@ body {
   top: 0;
   left: 0;
 
-  --border-width: max(4px, calc(var(--size) / 100));
+  --border-width: max(2px, calc(var(--size) / 70));
 }
 
 .rubiks-cube .face.front > * {
