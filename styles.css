@@ -4,11 +4,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(
-    to bottom,
-    rgb(48, 48, 48),
-    rgb(54, 54, 54)
-  );
+  background-image: linear-gradient(to bottom, rgb(48, 48, 48), rgb(54, 54, 54));
 }
 
 body {
@@ -45,15 +41,14 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  pointer-events: none;
 }
 
 .rubiks-cube .face {
-  pointer-events: none;
   --translation: translate3d(0, 0, var(--half-size));
 }
 
-.rubiks-cube .face,
-.control-cube .face {
+.rubiks-cube .face {
   width: var(--size);
   height: var(--size);
   position: absolute;
@@ -96,15 +91,19 @@ body {
   transform: var(--translation) var(--rotation);
   transform-style: preserve-3d;
   cursor: grab;
-  pointer-events: all;
   background-color: #000;
+  pointer-events: all;
 
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);
 }
 
+.rubiks-cube .face .piece:active {
+  cursor: grabbing;
+}
+
 .rubiks-cube .face .piece:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -115,59 +114,59 @@ body {
   backface-visibility: hidden;
 }
 
-.rubiks-cube .face .piece:active {
-  cursor: grabbing;
+.rubiks-cube[data-highlight='true'] .face .piece:after {
+  box-shadow: 0 0 10px #fff;
 }
 
-.rubiks-cube .face .piece[data-index="1"] {
+.rubiks-cube .face .piece[data-index='1'] {
   top: 0;
   left: 0;
   transform-origin: 150% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="2"] {
+.rubiks-cube .face .piece[data-index='2'] {
   top: 0;
   left: var(--second-position);
   transform-origin: 50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="3"] {
+.rubiks-cube .face .piece[data-index='3'] {
   top: 0;
   left: var(--third-position);
   transform-origin: -50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="4"] {
+.rubiks-cube .face .piece[data-index='4'] {
   top: var(--second-position);
   left: 0;
   transform-origin: 150% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="5"] {
+.rubiks-cube .face .piece[data-index='5'] {
   top: var(--second-position);
   left: var(--second-position);
   transform-origin: 50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="6"] {
+.rubiks-cube .face .piece[data-index='6'] {
   top: var(--second-position);
   left: var(--third-position);
   transform-origin: -50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="7"] {
+.rubiks-cube .face .piece[data-index='7'] {
   top: var(--third-position);
   left: 0;
   transform-origin: 150% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="8"] {
+.rubiks-cube .face .piece[data-index='8'] {
   top: var(--third-position);
   left: var(--second-position);
   transform-origin: 50% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index="9"] {
+.rubiks-cube .face .piece[data-index='9'] {
   top: var(--third-position);
   left: var(--third-position);
   transform-origin: -50% -50% var(--half-size-neg);
@@ -177,69 +176,4 @@ body {
   .rubiks-cube {
     --size: min(65vh, 65vw);
   }
-}
-
-/********************************************************************************
-                                CONTROL CUBE
-**/
-
-.control-cube {
-  width: var(--size);
-  height: var(--size);
-  position: absolute;
-  top: var(--half-size);
-  right: var(--half-size);
-  transform-style: preserve-3d;
-  transform: rotateX(var(--crx)) rotateY(var(--cry));
-
-  --size: min(20vh, 20vw);
-  --half-size: calc(var(--size) / 2);
-  --half-size-neg: calc(var(--size) / -2);
-  --crx: 0deg;
-  --cry: 0deg;
-}
-
-.control-cube .face {
-  border: 1px solid rgb(214, 220, 238);
-  user-select: none;
-  cursor: grab;
-  backface-visibility: none;
-  background-color: rgb(101, 119, 223);
-  opacity: 0.8;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  font-family: sans-serif;
-  font-size: calc(var(--size) / 5);
-  color: rgb(255, 255, 255);
-}
-
-.control-cube .face:active {
-  cursor: grabbing;
-}
-
-.control-cube .face.front {
-  transform: translate3d(0, 0, var(--half-size)) rotate3d(0, 0, 0, 0deg);
-}
-
-.control-cube .face.right {
-  transform: translate3d(var(--half-size), 0, 0) rotate3d(0, 1, 0, 90deg);
-}
-
-.control-cube .face.left {
-  transform: translate3d(var(--half-size-neg), 0, 0) rotate3d(0, 1, 0, -90deg);
-}
-
-.control-cube .face.back {
-  transform: translate3d(0, 0, var(--half-size-neg)) rotate3d(0, 1, 0, 180deg);
-}
-
-.control-cube .face.top {
-  transform: translate3d(0, var(--half-size-neg), 0) rotate3d(1, 0, 0, 90deg);
-}
-
-.control-cube .face.bottom {
-  transform: translate3d(0, var(--half-size), 0) rotate3d(1, 0, 0, -90deg);
 }

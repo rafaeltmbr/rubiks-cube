@@ -7,7 +7,7 @@
     <title>Rubik's Cube</title>
   </head>
   <body>
-    <div class="rubiks-cube" style="--crx: -20deg; --cry: -45deg">
+    <div class="rubiks-cube" style="--crx: -20deg; --cry: -45deg" data-highlight="false">
       <div class="face front" data-index="1">
         <div class="piece" data-index="1" style="--rotation: "></div>
         <div class="piece" data-index="2" style="--rotation: "></div>
@@ -75,14 +75,7 @@
         <div class="piece" data-index="9" style="--rotation: rotateX(270deg)"></div>
       </div>
     </div>
-    <div class="control-cube" style="--crx: -20deg; --cry: -45deg">
-      <div class="face front">front</div>
-      <div class="face right">right</div>
-      <div class="face left">left</div>
-      <div class="face back">back</div>
-      <div class="face top">top</div>
-      <div class="face bottom">bottom</div>
-    </div>
+    <script src="./PieceMatrix.js"></script>
     <script src="./matrixMovementMap.js"></script>
     <script src="./rotationMap.js"></script>
     <script src="./scripts.js"></script>
