@@ -1,10 +1,36 @@
 window.addEventListener('load', () => {
   const piecesMatrix = new PiecesMatrix('.rubiks-cube');
 
+  shuffleAnimation({ piecesMatrix });
   implementRubiksCubePiecesMovement({ piecesMatrix });
   implementRubiksCubeSideRotation({ piecesMatrix });
   implementRubiksCubeTopRotation({ piecesMatrix });
 });
+
+function shuffleAnimation({ piecesMatrix }) {
+  const cubeWrapper = document.querySelector('.main-container .cube-wrapper');
+  const rubiksCube = document.querySelector('.main-container .cube-wrapper .rubiks-cube');
+  const controls = document.querySelector('.main-container .cube-wrapper .controls');
+  const animationDuration = 150;
+  let shuffleCount = 20;
+  const totalAnimationDuration = animationDuration * shuffleCount;
+  cubeWrapper.style = `--translateY: 0px; --scale: 1, 1, 1; --scale-duration: ${totalAnimationDuration}ms;`;
+  rubiksCube.style = `--cry: 315deg; --own-animation-duration: ${totalAnimationDuration}ms; --animation-duration: ${animationDuration}ms;`;
+
+  function shuffleCube(callback) {
+    piecesMatrix.rotateRandomPiece();
+    shuffleCount--;
+
+    if (shuffleCount > 0) setTimeout(() => shuffleCube(callback), animationDuration);
+    else callback();
+  }
+
+  shuffleCube(() => {
+    rubiksCube.style = `--cry: 315deg;`;
+    controls.style = '';
+    controls.style = `--opacity: 1; --events: all`;
+  });
+}
 
 function implementRubiksCubePiecesMovement({ piecesMatrix }) {
   const sideAxisAngles = {

@@ -82,6 +82,19 @@ class PiecesMatrix {
     }
   }
 
+  rotateRandomPiece() {
+    const sides = ['front', 'right', 'top'];
+    const side = sides[Math.floor(Math.random() * sides.length)];
+    const row = Math.floor(Math.random() * 3);
+    const column = Math.floor(Math.random() * 3);
+
+    const piece = this._matrix[side][row][column][0];
+    const axis = Math.random() >= 0.5 ? 'x' : 'y';
+    const angle = Math.random() >= 0.5 ? 90 : -90;
+
+    this.rotatePiece({ piece, axis, angle });
+  }
+
   _adjustPiecePosition({ move, column, row }) {
     let r = move.swapAxis ? column : row;
     let c = move.swapAxis ? row : column;

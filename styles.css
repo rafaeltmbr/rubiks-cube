@@ -34,6 +34,13 @@ body {
   justify-content: center;
   perspective-origin: center;
   perspective: min(250vh, 250vw);
+  transform: translateY(var(--translateY)) scale3d(var(--scale));
+  transform-style: preserve-3d;
+  transition: transform var(--scale-duration) ease-in;
+
+  --translateY: calc(var(--cube-size) * -0.5);
+  --scale: 0.5, 0.5, 0.5;
+  --scale-duration: 0ms;
 }
 
 .main-container .cube-wrapper .rubiks-cube {
@@ -41,14 +48,15 @@ body {
   height: var(--size);
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(-30deg) rotateY(-45deg);
-  transition: transform var(--animation-duration);
+  transform: rotateX(var(--crx)) rotateY(var(--cry));
+  transition: transform var(--own-animation-duration) linear;
 
   --size: var(--cube-size);
   --half-size: calc(var(--size) / 2);
   --half-size-neg: calc(var(--size) / -2);
-  --crx: 0deg;
-  --cry: 0deg;
+  --crx: -30deg;
+  --cry: -45deg;
+  --own-animation-duration: 0ms;
   --animation-duration: 300ms;
 }
 
@@ -205,11 +213,17 @@ body {
 }
 
 .main-container .controls {
+  opacity: var(--opacity);
   position: absolute;
+  width: 100%;
   height: calc(var(--cube-size) * 1.8);
   transform: translateY(calc(var(--cube-size) * 0.05));
   -webkit-tap-highlight-color: transparent;
-  width: 100%;
+  pointer-events: var(--events);
+  transition: opacity 1.2s;
+
+  --opacity: 0;
+  --events: none;
 }
 
 .main-container .controls > * {
