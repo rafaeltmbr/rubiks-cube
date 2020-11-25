@@ -1,27 +1,13 @@
 window.addEventListener('load', () => {
-  implementRubiksCubePiecesMovement();
-});
-
-function implementRubiksCubePiecesMovement() {
-  const rubiksCube = document.querySelector('.rubiks-cube');
   const piecesMatrix = new PiecesMatrix('.rubiks-cube');
 
-  const maxXAngle = 20;
-  const cubeMoveTimeout = 500;
-  const lastCubePosition = { x: -45, y: maxXAngle };
-  const currentCubePosition = {
-    x: lastCubePosition.x,
-    y: lastCubePosition.y,
-  };
+  implementRubiksCubePiecesMovement({ piecesMatrix });
+  implementRubiksCubeSideRotation({ piecesMatrix });
+  implementRubiksCubeTopRotation({ piecesMatrix });
+});
 
+function implementRubiksCubePiecesMovement({ piecesMatrix }) {
   function allowCubeMovement(startEvent) {
-    let allowCubeMove = false;
-
-    const cubeMovetimeoutDescriptor = setTimeout(() => {
-      allowCubeMove = true;
-      rubiksCube.setAttribute('data-highlight', 'true');
-    }, cubeMoveTimeout);
-
     const isTouch = startEvent.touches;
     const { pageX: startX, pageY: startY } = isTouch ? startEvent.touches[0] : startEvent;
     const piece = startEvent.target;
@@ -36,23 +22,10 @@ function implementRubiksCubePiecesMovement() {
 
       const { pageX, pageY } = isTouch ? moveEvent.touches[0] : moveEvent;
       const offset = { x: pageX - startX, y: pageY - startY };
-      const diff = { x: pageX - lastPageCoordinates.x, y: pageY - lastPageCoordinates.y };
       lastPageCoordinates.x = pageX;
       lastPageCoordinates.y = pageY;
 
-      if (allowCubeMove) moveCube({ diff });
-      else movePiece({ offset });
-    }
-
-    function moveCube({ diff }) {
-      currentCubePosition.x = (diff.x + currentCubePosition.x) % 360;
-      currentCubePosition.y = (diff.y + currentCubePosition.y) % 360;
-
-      if (Math.abs(currentCubePosition.y) > maxXAngle) {
-        currentCubePosition.y = currentCubePosition.y < 0 ? -maxXAngle : maxXAngle;
-      }
-
-      rubiksCube.style = `--crx: ${-currentCubePosition.y}deg; --cry: ${currentCubePosition.x}deg;`;
+      movePiece({ offset });
     }
 
     function movePiece({ offset }) {
@@ -71,11 +44,6 @@ function implementRubiksCubePiecesMovement() {
     }
 
     function endCubeMovement() {
-      clearTimeout(cubeMovetimeoutDescriptor);
-      lastCubePosition.x = currentCubePosition.x;
-      lastCubePosition.y = currentCubePosition.y;
-      rubiksCube.setAttribute('data-highlight', 'false');
-
       window.removeEventListener(isTouch ? 'touchmove' : 'mousemove', handleCubeMovement);
       window.removeEventListener(isTouch ? 'touchend' : 'mouseup', endCubeMovement);
     }
@@ -90,4 +58,74 @@ function implementRubiksCubePiecesMovement() {
 
   piecesMatrix.pieces.forEach((piece) => piece.addEventListener('mousedown', allowCubeMovement));
   piecesMatrix.pieces.forEach((piece) => piece.addEventListener('touchstart', allowCubeMovement));
+}
+
+function implementRubiksCubeSideRotation({ piecesMatrix }) {
+  const rotateRight = document.querySelector('.main-container .lower-controls .rotate-right');
+  const rotateLeft = document.querySelector('.main-container .lower-controls .rotate-left');
+
+  function rotateRightHandler() {
+    piecesMatrix._matrix.front.forEach((row) => {
+      const piece = row[0];
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'y', angle: 90 });
+    });
+  }
+
+  function rotateLeftHandler() {
+    piecesMatrix._matrix.front.forEach((row) => {
+      const piece = row[0];
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'y', angle: -90 });
+    });
+  }
+
+  rotateRight.addEventListener('click', rotateRightHandler);
+  rotateLeft.addEventListener('click', rotateLeftHandler);
+}
+
+function implementRubiksCubeTopRotation({ piecesMatrix }) {
+  const rotateTopToLeft = document.querySelector(
+    '.main-container .upper-controls .rotate-top-to-left'
+  );
+  const rotateTopToRight = document.querySelector(
+    '.main-container .upper-controls .rotate-top-to-right'
+  );
+  const rotateRightToTop = document.querySelector(
+    '.main-container .middle-controls .rotate-right-to-top'
+  );
+  const rotateLeftToTop = document.querySelector(
+    '.main-container .middle-controls .rotate-left-to-top'
+  );
+
+  function rotateTopToLeftHandler() {
+    const pieces = piecesMatrix._matrix.front[0];
+    pieces.forEach((piece) => {
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'x', angle: -90 });
+    });
+  }
+
+  function rotateTopToRightHandler() {
+    const pieces = piecesMatrix._matrix.right[0];
+    pieces.forEach((piece) => {
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'x', angle: -90 });
+    });
+  }
+
+  function rotateRightToTopHandler() {
+    const pieces = piecesMatrix._matrix.right[0];
+    pieces.forEach((piece) => {
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'x', angle: 90 });
+    });
+  }
+
+  function rotateLeftToTopHandler() {
+    const pieces = piecesMatrix._matrix.front[0];
+    pieces.forEach((piece) => {
+      piecesMatrix.rotatePiece({ piece: piece[0], axis: 'x', angle: 90 });
+    });
+  }
+
+  rotateTopToLeft.addEventListener('click', rotateTopToLeftHandler);
+  rotateTopToRight.addEventListener('click', rotateTopToRightHandler);
+  rotateRightToTop.addEventListener('click', rotateRightToTopHandler);
+  rotateLeftToTop.addEventListener('click', rotateLeftToTopHandler);
 }

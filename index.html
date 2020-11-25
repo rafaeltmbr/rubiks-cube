@@ -7,72 +7,166 @@
     <title>Rubik's Cube</title>
   </head>
   <body>
-    <div class="rubiks-cube" style="--crx: -20deg; --cry: -45deg" data-highlight="false">
-      <div class="face front" data-index="1">
-        <div class="piece" data-index="1" style="--rotation: "></div>
-        <div class="piece" data-index="2" style="--rotation: "></div>
-        <div class="piece" data-index="3" style="--rotation: "></div>
-        <div class="piece" data-index="4" style="--rotation: "></div>
-        <div class="piece" data-index="5" style="--rotation: "></div>
-        <div class="piece" data-index="6" style="--rotation: "></div>
-        <div class="piece" data-index="7" style="--rotation: "></div>
-        <div class="piece" data-index="8" style="--rotation: "></div>
-        <div class="piece" data-index="9" style="--rotation: "></div>
+    <div class="main-container">
+      <div class="upper-controls">
+        <div class="rotate-top-to-left">
+          <svg
+            width="75"
+            height="15"
+            viewBox="0 0 75 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M13 13.5L3 7.25L13 1.5" stroke="black" stroke-width="3" />
+            <line x1="5" y1="7.5" x2="75" y2="7.5" stroke="black" stroke-width="3" />
+          </svg>
+        </div>
+        <div class="rotate-top-to-right">
+          <svg
+            width="75"
+            height="15"
+            viewBox="0 0 75 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M13 13.5L3 7.25L13 1.5" stroke="black" stroke-width="3" />
+            <line x1="5" y1="7.5" x2="75" y2="7.5" stroke="black" stroke-width="3" />
+          </svg>
+        </div>
       </div>
-      <div class="face right" data-index="2">
-        <div class="piece" data-index="1" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="2" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="3" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="4" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="5" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="6" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="7" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="8" style="--rotation: rotateY(90deg)"></div>
-        <div class="piece" data-index="9" style="--rotation: rotateY(90deg)"></div>
+      <div class="cube-wrapper">
+        <div class="middle-controls">
+          <div class="rotate-left-to-top">
+            <svg
+              width="75"
+              height="15"
+              viewBox="0 0 75 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M13 13.5L3 7.25L13 1.5" stroke="black" stroke-width="3" />
+              <line x1="5" y1="7.5" x2="75" y2="7.5" stroke="black" stroke-width="3" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="rubiks-cube" data-highlight="false">
+          <div class="face front" data-index="1">
+            <div class="piece" data-index="1" style="--rotation: "></div>
+            <div class="piece" data-index="2" style="--rotation: "></div>
+            <div class="piece" data-index="3" style="--rotation: "></div>
+            <div class="piece" data-index="4" style="--rotation: "></div>
+            <div class="piece" data-index="5" style="--rotation: "></div>
+            <div class="piece" data-index="6" style="--rotation: "></div>
+            <div class="piece" data-index="7" style="--rotation: "></div>
+            <div class="piece" data-index="8" style="--rotation: "></div>
+            <div class="piece" data-index="9" style="--rotation: "></div>
+          </div>
+          <div class="face right" data-index="2">
+            <div class="piece" data-index="1" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="2" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="3" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="4" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="5" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="6" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="7" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="8" style="--rotation: rotateY(90deg)"></div>
+            <div class="piece" data-index="9" style="--rotation: rotateY(90deg)"></div>
+          </div>
+          <div class="face left" data-index="3">
+            <div class="piece" data-index="1" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="2" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="3" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="4" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="5" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="6" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="7" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="8" style="--rotation: rotateY(270deg)"></div>
+            <div class="piece" data-index="9" style="--rotation: rotateY(270deg)"></div>
+          </div>
+          <div class="face back" data-index="4">
+            <div class="piece" data-index="1" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="2" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="3" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="4" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="5" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="6" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="7" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="8" style="--rotation: rotateY(180deg)"></div>
+            <div class="piece" data-index="9" style="--rotation: rotateY(180deg)"></div>
+          </div>
+          <div class="face top" data-index="5">
+            <div class="piece" data-index="1" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="2" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="3" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="4" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="5" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="6" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="7" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="8" style="--rotation: rotateX(90deg)"></div>
+            <div class="piece" data-index="9" style="--rotation: rotateX(90deg)"></div>
+          </div>
+          <div class="face bottom" data-index="6">
+            <div class="piece" data-index="1" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="2" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="3" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="4" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="5" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="6" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="7" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="8" style="--rotation: rotateX(270deg)"></div>
+            <div class="piece" data-index="9" style="--rotation: rotateX(270deg)"></div>
+          </div>
+        </div>
+
+        <div class="middle-controls">
+          <div class="rotate-right-to-top">
+            <svg
+              width="75"
+              height="15"
+              viewBox="0 0 75 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M13 13.5L3 7.25L13 1.5" stroke="black" stroke-width="3" />
+              <line x1="5" y1="7.5" x2="75" y2="7.5" stroke="black" stroke-width="3" />
+            </svg>
+          </div>
+        </div>
       </div>
-      <div class="face left" data-index="3">
-        <div class="piece" data-index="1" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="2" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="3" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="4" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="5" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="6" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="7" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="8" style="--rotation: rotateY(270deg)"></div>
-        <div class="piece" data-index="9" style="--rotation: rotateY(270deg)"></div>
-      </div>
-      <div class="face back" data-index="4">
-        <div class="piece" data-index="1" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="2" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="3" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="4" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="5" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="6" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="7" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="8" style="--rotation: rotateY(180deg)"></div>
-        <div class="piece" data-index="9" style="--rotation: rotateY(180deg)"></div>
-      </div>
-      <div class="face top" data-index="5">
-        <div class="piece" data-index="1" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="2" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="3" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="4" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="5" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="6" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="7" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="8" style="--rotation: rotateX(90deg)"></div>
-        <div class="piece" data-index="9" style="--rotation: rotateX(90deg)"></div>
-      </div>
-      <div class="face bottom" data-index="6">
-        <div class="piece" data-index="1" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="2" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="3" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="4" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="5" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="6" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="7" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="8" style="--rotation: rotateX(270deg)"></div>
-        <div class="piece" data-index="9" style="--rotation: rotateX(270deg)"></div>
+      <div class="lower-controls">
+        <div class="rotate-left">
+          <svg
+            width="57"
+            height="76"
+            viewBox="0 0 57 76"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 62.6152C47.0516 54.2354 52.5653 24.3896 49.5658 10.5142"
+              stroke="black"
+              stroke-width="3"
+            />
+            <path d="M44 19L50 9L56 19" stroke="black" stroke-width="3" />
+          </svg>
+        </div>
+        <div class="rotate-right">
+          <svg
+            width="57"
+            height="76"
+            viewBox="0 0 57 76"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 62.6152C47.0516 54.2354 52.5653 24.3896 49.5658 10.5142"
+              stroke="black"
+              stroke-width="3"
+            />
+            <path d="M44 19L50 9L56 19" stroke="black" stroke-width="3" />
+          </svg>
+        </div>
       </div>
     </div>
     <script src="./PieceMatrix.js"></script>

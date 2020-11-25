@@ -11,25 +11,40 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
-  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  --cube-size: min(50vh, 50vw);
+}
+
+.main-container .cube-wrapper {
+  height: calc(var(--cube-size) * 1.35);
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective-origin: center;
+  perspective: min(250vh, 250vw);
 }
 
-/********************************************************************************
-                                RUBIK'S CUBE
-**/
-
-.rubiks-cube {
+.main-container .cube-wrapper .rubiks-cube {
   width: var(--size);
   height: var(--size);
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(var(--crx)) rotateY(var(--cry));
+  transform: rotateX(-30deg) rotateY(-45deg);
+  transition: transform var(--animation-duration);
 
-  --size: min(50vh, 50vw);
+  --size: var(--cube-size);
   --half-size: calc(var(--size) / 2);
   --half-size-neg: calc(var(--size) / -2);
   --crx: 0deg;
@@ -37,18 +52,18 @@ body {
   --animation-duration: 350ms;
 }
 
-.rubiks-cube * {
+.main-container .cube-wrapper .rubiks-cube * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   pointer-events: none;
 }
 
-.rubiks-cube .face {
+.main-container .cube-wrapper .rubiks-cube .face {
   --translation: translate3d(0, 0, var(--half-size));
 }
 
-.rubiks-cube .face {
+.main-container .cube-wrapper .rubiks-cube .face {
   width: var(--size);
   height: var(--size);
   position: absolute;
@@ -59,31 +74,31 @@ body {
   --border-width: max(2px, calc(var(--size) / 70));
 }
 
-.rubiks-cube .face.front .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.front .piece:after {
   background-color: rgb(0, 155, 72);
 }
 
-.rubiks-cube .face.right .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.right .piece:after {
   background-color: rgb(183, 18, 52);
 }
 
-.rubiks-cube .face.left .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.left .piece:after {
   background-color: rgb(255, 88, 0);
 }
 
-.rubiks-cube .face.back .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.back .piece:after {
   background-color: rgb(0, 70, 173);
 }
 
-.rubiks-cube .face.top .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.top .piece:after {
   background-color: rgb(255, 255, 255);
 }
 
-.rubiks-cube .face.bottom .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face.bottom .piece:after {
   background-color: rgb(255, 213, 0);
 }
 
-.rubiks-cube .face .piece {
+.main-container .cube-wrapper .rubiks-cube .face .piece {
   position: absolute;
   width: calc(var(--size) / 3);
   height: calc(var(--size) / 3);
@@ -98,11 +113,11 @@ body {
   --third-position: calc(var(--size) / 3 * 2);
 }
 
-.rubiks-cube .face .piece:active {
+.main-container .cube-wrapper .rubiks-cube .face .piece:active {
   cursor: grabbing;
 }
 
-.rubiks-cube .face .piece:after {
+.main-container .cube-wrapper .rubiks-cube .face .piece:after {
   content: '';
   display: block;
   position: absolute;
@@ -114,66 +129,124 @@ body {
   backface-visibility: hidden;
 }
 
-.rubiks-cube[data-highlight='true'] .face .piece:after {
-  box-shadow: 0 0 10px #fff;
-}
-
-.rubiks-cube .face .piece[data-index='1'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='1'] {
   top: 0;
   left: 0;
   transform-origin: 150% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='2'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='2'] {
   top: 0;
   left: var(--second-position);
   transform-origin: 50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='3'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='3'] {
   top: 0;
   left: var(--third-position);
   transform-origin: -50% 150% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='4'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='4'] {
   top: var(--second-position);
   left: 0;
   transform-origin: 150% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='5'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='5'] {
   top: var(--second-position);
   left: var(--second-position);
   transform-origin: 50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='6'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='6'] {
   top: var(--second-position);
   left: var(--third-position);
   transform-origin: -50% 50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='7'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='7'] {
   top: var(--third-position);
   left: 0;
   transform-origin: 150% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='8'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='8'] {
   top: var(--third-position);
   left: var(--second-position);
   transform-origin: 50% -50% var(--half-size-neg);
 }
 
-.rubiks-cube .face .piece[data-index='9'] {
+.main-container .cube-wrapper .rubiks-cube .face .piece[data-index='9'] {
   top: var(--third-position);
   left: var(--third-position);
   transform-origin: -50% -50% var(--half-size-neg);
 }
 
+.main-container .upper-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(var(--cube-size) * 1.2);
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main-container .upper-controls > * {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.main-container .upper-controls .rotate-top-to-left {
+  transform: rotateZ(-20deg);
+}
+
+.main-container .upper-controls .rotate-top-to-right {
+  transform: rotateY(180deg) rotateZ(-20deg);
+}
+
+.main-container .middle-controls {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main-container .middle-controls > * {
+  padding: 10px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.main-container .middle-controls .rotate-left-to-top {
+  margin-right: calc(var(--cube-size) * 0.2);
+  transform: rotateZ(83deg);
+}
+
+.main-container .middle-controls .rotate-right-to-top {
+  margin-left: calc(var(--cube-size) * 0.2);
+  transform: rotateZ(97deg);
+}
+
+.main-container .lower-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(var(--cube-size) * 1.2);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main-container .lower-controls .rotate-left {
+  transform: rotateY(180deg) rotateZ(10deg);
+  cursor: pointer;
+}
+
+.main-container .lower-controls .rotate-right {
+  transform: rotateZ(10deg);
+  cursor: pointer;
+}
+
 @media screen and (max-width: 700px) {
-  .rubiks-cube {
-    --size: min(65vh, 65vw);
+  .main-container {
+    --cube-size: min(50vh, 50vw);
   }
 }
