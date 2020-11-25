@@ -37,8 +37,7 @@ class PiecesMatrix {
   }
 
   rotatePiece({ piece, axis, angle }) {
-    const location = this._findPieceLocation(piece);
-    //if (location.side === 'top' || location.side === 'bottom') return;
+    const location = this.findPieceLocation({ piece });
 
     const maps = rotationMap[location.side][axis][axis === 'x' ? location.column : location.row];
 
@@ -71,7 +70,7 @@ class PiecesMatrix {
     piece.style = `${piece._piecesMatrix.lastRotation};`;
   }
 
-  _findPieceLocation(piece) {
+  findPieceLocation({ piece }) {
     for (let s = 0; s < this._sides.length; s += 1) {
       const side = this._sides[s];
       for (let row = 0; row < 3; row += 1) {

@@ -7,13 +7,21 @@ window.addEventListener('load', () => {
 });
 
 function implementRubiksCubePiecesMovement({ piecesMatrix }) {
+  const sideAxisAngles = {
+    top: { y: [25, 205], x: [155, 335] },
+    front: { y: [25, 205], x: [90, 270] },
+    right: { y: [335, 155], x: [90, 270] },
+  };
+
   function allowCubeMovement(startEvent) {
     const isTouch = startEvent.touches;
     const { pageX: startX, pageY: startY } = isTouch ? startEvent.touches[0] : startEvent;
     const piece = startEvent.target;
+    const location = piecesMatrix.findPieceLocation({ piece });
     let axis = '';
     let rotated = false;
-    const minOffsetDiff = 10;
+    const angleInterval = 30;
+    const minOffset = 16;
     const lastPageCoordinates = { x: startX, y: startY };
 
     function handleCubeMovement(moveEvent) {
@@ -29,16 +37,18 @@ function implementRubiksCubePiecesMovement({ piecesMatrix }) {
     }
 
     function movePiece({ offset }) {
-      if (!axis) {
-        const offsetDiff = Math.abs(Math.abs(offset.x) - Math.abs(offset.y));
-        if (offsetDiff >= minOffsetDiff) {
-          axis = Math.abs(offset.x) > Math.abs(offset.y) ? 'y' : 'x';
-        }
+      if (!axis && isAtLeastAbs({ values: [offset.x, offset.y], minimum: minOffset })) {
+        const angle = getAngle({ offset });
+        const axisAngles = sideAxisAngles[location.side];
+        if (isAngleAroundBases({ bases: axisAngles.x, angle, offset: angleInterval })) axis = 'x';
+        else if (isAngleAroundBases({ bases: axisAngles.y, angle, offset: angleInterval }))
+          axis = 'y';
       }
 
       if (axis && !rotated) {
         const angle = axis === 'x' ? (offset.y >= 0 ? -90 : 90) : offset.x >= 0 ? 90 : -90;
         piecesMatrix.rotatePiece({ piece, axis, angle });
+        rotated = true;
         endCubeMovement();
       }
     }
@@ -120,4 +130,32 @@ function implementRubiksCubeTopRotation({ piecesMatrix }) {
   rotateTopToRight.addEventListener('click', rotateTopToRightHandler);
   rotateRightToTop.addEventListener('click', rotateRightToTopHandler);
   rotateLeftToTop.addEventListener('click', rotateLeftToTopHandler);
+}
+
+function getAngle({ offset }) {
+  const angle = (Math.atan(offset.y / offset.x) * 180) / Math.PI;
+
+  if (offset.x >= 0 && offset.y >= 0) return angle;
+  if (offset.x < 0 && offset.y >= 0) return 180 + angle;
+  if (offset.x < 0 && offset.y < 0) return 180 + angle;
+  return 360 + angle;
+}
+
+function normalizeAngle(angle) {
+  const ang = angle % 360;
+  return ang < 0 ? 360 + ang : ang;
+}
+
+function isAngleAroundBases({ bases, offset, angle }) {
+  const normAngle = normalizeAngle(angle);
+
+  return bases.find((base) => {
+    const min = base - offset;
+    const max = base + offset;
+    return normAngle >= min && normAngle <= max;
+  });
+}
+
+function isAtLeastAbs({ values, minimum }) {
+  return values.find((v) => Math.abs(v) >= minimum);
 }
