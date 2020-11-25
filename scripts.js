@@ -61,8 +61,8 @@ function implementRubiksCubePiecesMovement({ piecesMatrix }) {
 }
 
 function implementRubiksCubeSideRotation({ piecesMatrix }) {
-  const rotateRight = document.querySelector('.main-container .lower-controls .rotate-right');
-  const rotateLeft = document.querySelector('.main-container .lower-controls .rotate-left');
+  const rotateRight = document.querySelector('.main-container .controls .rotate-right');
+  const rotateLeft = document.querySelector('.main-container .controls .rotate-left');
 
   function rotateRightHandler() {
     piecesMatrix._matrix.front.forEach((row) => {
@@ -78,23 +78,17 @@ function implementRubiksCubeSideRotation({ piecesMatrix }) {
     });
   }
 
-  rotateRight.addEventListener('click', rotateRightHandler);
-  rotateLeft.addEventListener('click', rotateLeftHandler);
+  rotateRight.addEventListener('mousedown', rotateRightHandler);
+  rotateLeft.addEventListener('mousedown', rotateLeftHandler);
+  rotateRight.addEventListener('touchstart', rotateRightHandler);
+  rotateLeft.addEventListener('touchstart', rotateLeftHandler);
 }
 
 function implementRubiksCubeTopRotation({ piecesMatrix }) {
-  const rotateTopToLeft = document.querySelector(
-    '.main-container .upper-controls .rotate-top-to-left'
-  );
-  const rotateTopToRight = document.querySelector(
-    '.main-container .upper-controls .rotate-top-to-right'
-  );
-  const rotateRightToTop = document.querySelector(
-    '.main-container .middle-controls .rotate-right-to-top'
-  );
-  const rotateLeftToTop = document.querySelector(
-    '.main-container .middle-controls .rotate-left-to-top'
-  );
+  const rotateTopToLeft = document.querySelector('.main-container .controls .rotate-top-to-left');
+  const rotateTopToRight = document.querySelector('.main-container .controls .rotate-top-to-right');
+  const rotateRightToTop = document.querySelector('.main-container .controls .rotate-right-to-top');
+  const rotateLeftToTop = document.querySelector('.main-container .controls .rotate-left-to-top');
 
   function rotateTopToLeftHandler() {
     const pieces = piecesMatrix._matrix.front[0];
@@ -124,8 +118,12 @@ function implementRubiksCubeTopRotation({ piecesMatrix }) {
     });
   }
 
-  rotateTopToLeft.addEventListener('click', rotateTopToLeftHandler);
-  rotateTopToRight.addEventListener('click', rotateTopToRightHandler);
-  rotateRightToTop.addEventListener('click', rotateRightToTopHandler);
-  rotateLeftToTop.addEventListener('click', rotateLeftToTopHandler);
+  rotateTopToLeft.addEventListener('mousedown', rotateTopToLeftHandler);
+  rotateTopToRight.addEventListener('mousedown', rotateTopToRightHandler);
+  rotateRightToTop.addEventListener('mousedown', rotateRightToTopHandler);
+  rotateLeftToTop.addEventListener('mousedown', rotateLeftToTopHandler);
+  rotateTopToLeft.addEventListener('touchstart', rotateTopToLeftHandler);
+  rotateTopToRight.addEventListener('touchstart', rotateTopToRightHandler);
+  rotateRightToTop.addEventListener('touchstart', rotateRightToTopHandler);
+  rotateLeftToTop.addEventListener('touchstart', rotateLeftToTopHandler);
 }

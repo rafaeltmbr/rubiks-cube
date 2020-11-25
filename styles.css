@@ -71,7 +71,7 @@ body {
   top: 0;
   left: 0;
 
-  --border-width: max(2px, calc(var(--size) / 70));
+  --border-width: calc(var(--size) / 70);
 }
 
 .main-container .cube-wrapper .rubiks-cube .face.bottom:after {
@@ -204,66 +204,54 @@ body {
   border-radius: 0 var(--piece-border-radius) var(--piece-border-radius) var(--piece-border-radius);
 }
 
-.main-container .upper-controls {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(var(--cube-size) * 1.2);
-  z-index: 2;
+.main-container .controls {
+  position: absolute;
+  height: calc(var(--cube-size) * 1.8);
+  transform: translateY(calc(var(--cube-size) * 0.05));
   -webkit-tap-highlight-color: transparent;
+  width: 100%;
 }
 
-.main-container .upper-controls > * {
-  padding: 10px;
+.main-container .controls > * {
+  position: absolute;
   cursor: pointer;
+  width: 50%;
 }
 
-.main-container .upper-controls .rotate-top-to-left {
-  transform: rotateZ(-20deg);
+.main-container .controls .rotate-top-to-left {
+  left: 0;
+  bottom: 0;
+  height: 25%;
 }
 
-.main-container .upper-controls .rotate-top-to-right {
-  transform: rotateY(180deg) rotateZ(-20deg);
+.main-container .controls .rotate-top-to-right {
+  right: 0;
+  bottom: 0;
+  height: 25%;
 }
 
-.main-container .middle-controls {
-  -webkit-tap-highlight-color: transparent;
+.main-container .controls .rotate-left-to-top {
+  height: 25%;
+  top: 0;
+  right: 0;
 }
 
-.main-container .middle-controls > * {
-  padding: 10px;
-  cursor: pointer;
-  z-index: 2;
+.main-container .controls .rotate-right-to-top {
+  height: 25%;
+  top: 0;
+  left: 0;
 }
 
-.main-container .middle-controls .rotate-left-to-top {
-  margin-right: calc(var(--cube-size) * 0.2);
-  transform: rotateZ(83deg);
+.main-container .controls .rotate-right {
+  top: 25%;
+  right: 0;
+  height: 50%;
 }
 
-.main-container .middle-controls .rotate-right-to-top {
-  margin-left: calc(var(--cube-size) * 0.2);
-  transform: rotateZ(97deg);
-}
-
-.main-container .lower-controls {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(var(--cube-size) * 1.2);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.main-container .lower-controls .rotate-left {
-  transform: rotateY(180deg) rotateZ(10deg);
-  cursor: pointer;
-}
-
-.main-container .lower-controls .rotate-right {
-  transform: rotateZ(10deg);
-  cursor: pointer;
+.main-container .controls .rotate-left {
+  top: 25%;
+  left: 0;
+  height: 50%;
 }
 
 @media screen and (max-width: 700px) {
