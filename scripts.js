@@ -78,8 +78,8 @@ function implementRubiksCubeSideRotation({ piecesMatrix }) {
     });
   }
 
-  rotateRight.addEventListener('mousedown', rotateRightHandler);
-  rotateLeft.addEventListener('mousedown', rotateLeftHandler);
+  rotateRight.addEventListener('click', rotateRightHandler);
+  rotateLeft.addEventListener('click', rotateLeftHandler);
 }
 
 function implementRubiksCubeTopRotation({ piecesMatrix }) {
@@ -116,8 +116,8 @@ function implementRubiksCubeTopRotation({ piecesMatrix }) {
     });
   }
 
-  rotateTopToLeft.addEventListener('mousedown', rotateTopToLeftHandler);
-  rotateTopToRight.addEventListener('mousedown', rotateTopToRightHandler);
-  rotateRightToTop.addEventListener('mousedown', rotateRightToTopHandler);
-  rotateLeftToTop.addEventListener('mousedown', rotateLeftToTopHandler);
+  rotateTopToLeft.addEventListener('click', rotateTopToLeftHandler);
+  rotateTopToRight.addEventListener('click', rotateTopToRightHandler);
+  rotateRightToTop.addEventListener('click', rotateRightToTopHandler);
+  rotateLeftToTop.addEventListener('click', rotateLeftToTopHandler);
 }
