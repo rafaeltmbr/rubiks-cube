@@ -266,43 +266,43 @@ body {
 .main-container .controls .rotate-top-to-left > * {
   position: absolute;
   top: calc(var(--cube-size) * 0.25);
-  right: calc(var(--cube-size) * 0.45);
-  transform: rotateZ(-90deg);
+  right: calc(var(--cube-size) * 0.35);
+  transform: rotateY(-40deg) rotateZ(-90deg);
 }
 
 .main-container .controls .rotate-top-to-right > * {
   position: absolute;
   top: calc(var(--cube-size) * 0.25);
-  left: calc(var(--cube-size) * 0.45);
-  transform: rotateZ(-90deg);
+  left: calc(var(--cube-size) * 0.35);
+  transform: rotateY(-40deg) rotateZ(-90deg);
 }
 
 .main-container .controls .rotate-left-to-top > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.3);
-  left: calc(var(--cube-size) * 0.5);
-  transform: rotateZ(140deg);
+  bottom: calc(var(--cube-size) * 0.25);
+  left: calc(var(--cube-size) * 0.45);
+  transform: rotateX(45deg) rotateZ(140deg);
 }
 
 .main-container .controls .rotate-right-to-top > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.3);
-  right: calc(var(--cube-size) * 0.5);
-  transform: rotateZ(40deg);
+  bottom: calc(var(--cube-size) * 0.25);
+  right: calc(var(--cube-size) * 0.45);
+  transform: rotateX(45deg) rotateZ(40deg);
 }
 
 .main-container .controls .rotate-right > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.45);
-  left: calc(var(--cube-size) * 0.85);
-  transform: rotateZ(180deg);
+  bottom: calc(var(--cube-size) * 0.5);
+  left: calc(var(--cube-size) * 0.8);
+  transform: rotateZ(150deg) rotateX(30deg);
 }
 
 .main-container .controls .rotate-left > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.45);
-  right: calc(var(--cube-size) * 0.85);
-  transform: rotateZ(0deg);
+  bottom: calc(var(--cube-size) * 0.5);
+  right: calc(var(--cube-size) * 0.8);
+  transform: rotateZ(30deg) rotateX(30deg);
 }
 
 @media screen and (max-width: 700px) {
