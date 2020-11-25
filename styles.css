@@ -293,16 +293,16 @@ body {
 
 .main-container .controls .rotate-right > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.5);
+  bottom: calc(var(--cube-size) * 0.45);
   left: calc(var(--cube-size) * 0.85);
-  transform: rotateZ(150deg);
+  transform: rotateZ(180deg);
 }
 
 .main-container .controls .rotate-left > * {
   position: absolute;
-  bottom: calc(var(--cube-size) * 0.5);
+  bottom: calc(var(--cube-size) * 0.45);
   right: calc(var(--cube-size) * 0.85);
-  transform: rotateZ(30deg);
+  transform: rotateZ(0deg);
 }
 
 @media screen and (max-width: 700px) {
