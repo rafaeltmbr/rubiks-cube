@@ -254,6 +254,57 @@ body {
   height: 50%;
 }
 
+.main-container .controls > * > * {
+  font-size: calc(var(--cube-size) * 0.1);
+  color: rgb(84, 149, 223);
+}
+
+.main-container .controls > *:hover > * {
+  color: rgb(8, 65, 131);
+}
+
+.main-container .controls .rotate-top-to-left > * {
+  position: absolute;
+  top: calc(var(--cube-size) * 0.25);
+  right: calc(var(--cube-size) * 0.45);
+  transform: rotateZ(-90deg);
+}
+
+.main-container .controls .rotate-top-to-right > * {
+  position: absolute;
+  top: calc(var(--cube-size) * 0.25);
+  left: calc(var(--cube-size) * 0.45);
+  transform: rotateZ(-90deg);
+}
+
+.main-container .controls .rotate-left-to-top > * {
+  position: absolute;
+  bottom: calc(var(--cube-size) * 0.3);
+  left: calc(var(--cube-size) * 0.5);
+  transform: rotateZ(140deg);
+}
+
+.main-container .controls .rotate-right-to-top > * {
+  position: absolute;
+  bottom: calc(var(--cube-size) * 0.3);
+  right: calc(var(--cube-size) * 0.5);
+  transform: rotateZ(40deg);
+}
+
+.main-container .controls .rotate-right > * {
+  position: absolute;
+  bottom: calc(var(--cube-size) * 0.5);
+  left: calc(var(--cube-size) * 0.85);
+  transform: rotateZ(150deg);
+}
+
+.main-container .controls .rotate-left > * {
+  position: absolute;
+  bottom: calc(var(--cube-size) * 0.5);
+  right: calc(var(--cube-size) * 0.85);
+  transform: rotateZ(30deg);
+}
+
 @media screen and (max-width: 700px) {
   .main-container {
     --cube-size: min(50vh, 50vw);
