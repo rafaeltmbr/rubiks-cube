@@ -80,8 +80,6 @@ function implementRubiksCubeSideRotation({ piecesMatrix }) {
 
   rotateRight.addEventListener('mousedown', rotateRightHandler);
   rotateLeft.addEventListener('mousedown', rotateLeftHandler);
-  rotateRight.addEventListener('touchstart', rotateRightHandler);
-  rotateLeft.addEventListener('touchstart', rotateLeftHandler);
 }
 
 function implementRubiksCubeTopRotation({ piecesMatrix }) {
@@ -122,8 +120,4 @@ function implementRubiksCubeTopRotation({ piecesMatrix }) {
   rotateTopToRight.addEventListener('mousedown', rotateTopToRightHandler);
   rotateRightToTop.addEventListener('mousedown', rotateRightToTopHandler);
   rotateLeftToTop.addEventListener('mousedown', rotateLeftToTopHandler);
-  rotateTopToLeft.addEventListener('touchstart', rotateTopToLeftHandler);
-  rotateTopToRight.addEventListener('touchstart', rotateTopToRightHandler);
-  rotateRightToTop.addEventListener('touchstart', rotateRightToTopHandler);
-  rotateLeftToTop.addEventListener('touchstart', rotateLeftToTopHandler);
 }
