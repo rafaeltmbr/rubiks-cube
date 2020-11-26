@@ -26,6 +26,47 @@ body {
   --cube-size: min(50vh, 50vw);
 }
 
+.main-container .start-button {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: var(--button-size);
+  width: calc(var(--button-size) * 4);
+  transition: all 0.5s;
+  border: calc(var(--button-size) * 0.05) solid rgb(84, 149, 223);
+  border-radius: calc(var(--button-size) * 0.15);
+  font-size: calc(var(--button-size) * 0.5);
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: calc(var(--button-size) * -2);
+  margin-top: var(--button-size);
+  color: rgb(84, 149, 223);
+  background-color: #fff;
+
+  --button-size: calc(var(--cube-size) * 0.18);
+}
+
+.main-container .start-button:hover {
+  background-color: rgb(84, 149, 223);
+  color: #fff;
+}
+
+.main-container .start-button span {
+  margin-right: 1ch;
+}
+
+.main-container .start-button svg {
+  font-size: 1.3em;
+}
+
+.main-container .start-button[data-hide='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .main-container .cube-wrapper {
   height: calc(var(--cube-size) * 1.35);
   width: 100%;
@@ -102,7 +143,8 @@ body {
   transform-style: preserve-3d;
   cursor: grab;
   background-color: #000;
-  pointer-events: all;
+  pointer-events: var(--events);
+  --event: none;
   --piece-border-radius: calc(var(--border-width) * 2);
   --second-position: calc(var(--size) / 3);
   --third-position: calc(var(--size) / 3 * 2);

@@ -1,11 +1,20 @@
 window.addEventListener('load', () => {
   const piecesMatrix = new PiecesMatrix('.rubiks-cube');
 
-  shuffleAnimation({ piecesMatrix });
+  implementStartButton({ piecesMatrix });
   implementRubiksCubePiecesMovement({ piecesMatrix });
   implementRubiksCubeSideRotation({ piecesMatrix });
   implementRubiksCubeTopRotation({ piecesMatrix });
 });
+
+function implementStartButton({ piecesMatrix }) {
+  const startButton = document.querySelector('.main-container .start-button');
+
+  startButton.addEventListener('click', () => {
+    startButton.setAttribute('data-hide', 'true');
+    shuffleAnimation({ piecesMatrix });
+  });
+}
 
 function shuffleAnimation({ piecesMatrix }) {
   const cubeWrapper = document.querySelector('.main-container .cube-wrapper');
@@ -26,7 +35,7 @@ function shuffleAnimation({ piecesMatrix }) {
   }
 
   shuffleCube(() => {
-    rubiksCube.style = `--cry: 315deg;`;
+    rubiksCube.style = `--cry: 315deg; --events: all`;
     controls.style = '';
     controls.style = `--opacity: 1; --events: all`;
   });
